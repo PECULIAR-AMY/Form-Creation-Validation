@@ -1,45 +1,46 @@
-const form = document.getElementById('registration form'); 
+document.addEventListener('DOMContentLoaded', formSubmit);
 
- form.addEventListener ('submit', function(event) {
-    event.preventDefault();
+function formSubmit() {
+	const form = document.getElementById('registration-form');
+	const feedbackDiv = document.getElementById('form-feedback');
 
-    const usernameInput = document.getElementById('username').value.trim();
-    const emailInput = document.getElementById('email').Value.trim();
-    const passwordInput = document.getElementById('password').value.trim();
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
 
-    let isValid = true;
-    message = [];
+		const username = document.getElementById('username').value.trim();
+		const email = document.getElementById('email').value.trim();
+		const password = document.getElementById('password').value.trim();
 
-    // user validation
-    if (username.length < 3) {
-        isValid = false;
-        message.push ('username must be ateast 3 character long');
-    }
+		let isValid = true;
+		const messages = [];
 
+		// Username validation
+		if (username.length < 3) {
+			isValid = false;
+			messages.push('Username must be at least 3 characters long.');
+		}
 
-         // email validation
-    if (!email.include ('@') || !email.include('.') ) {
-        isValid = false;
-        message.push ("email must include '@' and '.'  character");
-    }
+		// Email validation
+		if (!email.includes('@') || !email.includes('.')) {
+			isValid = false;
+			messages.push('Invalid email format. Please include "@" and ".".');
+		}
 
-     //password validation
-     if (password.length < 8){
-        isValid = false;
-        message.push('password must be atleast 8 character long');
-     }
+		// Password validation
+		if (password.length < 8) {
+			isValid = false;
+			messages.push('Password must be at least 8 characters long.');
+		}
 
-    // set feedbackDiv
+		// Display feedback
+		feedbackDiv.style.display = 'block';
 
-    const feedbackDiv = document.getElementById('formfeedback');
-    feedbackDiv.style.display = "block";
-
-    if (isValid) {
-        feedbackDiv.textContent = "Registration successful";
-        feedbackDiv.style.color = "#28a745";
-    } else {
-       feedbackDiv.innerHTML = message.join ("<br>");
-       feedbackDiv.style.color = "#dc3545";
-    }
-
-});
+		if (isValid) {
+			feedbackDiv.textContent = 'Registration successful!';
+			feedbackDiv.style.color = '#28a745';
+		} else {
+			feedbackDiv.innerHTML = messages.join('<br>');
+			feedbackDiv.style.color = '#dc3545';
+		}
+	});
+}
